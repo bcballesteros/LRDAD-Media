@@ -1,4 +1,9 @@
-<!-- Apple Photos style: only carousel and video section have white background, rest is your site background -->
+<!-- 
+APPLE PHOTOS STYLE CAROUSEL + VIDEO SECTION ("Watch the Journey")
+Features:
+- Carousel and video section have "card" backgrounds
+- No background set on <body> (site background will show through)
+-->
 
 <link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,600,700&display=swap" rel="stylesheet">
 
@@ -52,15 +57,13 @@
   --font-main: 'Avenir Next','SF Pro Display', Arial, sans-serif;
 }
 
-/* Set your body background here - for demo it's a soft gray, can be transparent or an image */
 body {
-  background: #f6f8fb; /* <--- Your site background, NOT white! */
+  /* No background set so your site background/image shows through */
   margin: 0;
   color: #202024;
   font-family: var(--font-main);
 }
 
-/* Only containers have white card backgrounds! */
 .apple-carousel {
   width: 770px; max-width: 99vw; margin: 65px auto 0 auto; 
   font-family: var(--font-main);
@@ -163,7 +166,6 @@ body {
   0%,80%,100% { transform: translateY(0);}
   50% { transform: translateY(12px);}
 }
-
 .video-section {
   max-width: 770px;
   margin: 0 auto 0 auto;
