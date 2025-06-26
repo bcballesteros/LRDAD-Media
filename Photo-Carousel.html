@@ -1,4 +1,4 @@
-<!-- APPLE PHOTOS STYLE CAROUSEL: Soft, Rounded, Minimal, Slide-Fade, Caption Overlay (with hidden scrollbar on thumbs) -->
+<!-- APPLE PHOTOS STYLE CAROUSEL with always-visible blue effect on selected thumbnail -->
 <link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,600,700&display=swap" rel="stylesheet">
 <div class="apple-carousel">
   <div class="apple-main-wrap">
@@ -46,17 +46,21 @@
   text-shadow: 0 2px 8px #0009;
 }
 .apple-thumbs {
-  margin: 22px 0 0 0; display: flex; justify-content: center; gap: 13px;
+  margin: 22px 0 0 0; display: flex; justify-content: flex-start; gap: 13px;
   max-width: 99vw; overflow-x: auto; padding: 0 8px;
+  scroll-behavior: smooth;
+  transition: scroll-left 0.4s cubic-bezier(.55,.07,.38,1.01);
 }
 .apple-thumb {
   width: 67px; height: 44px; border-radius: 8px; border: 2.3px solid transparent; cursor: pointer;
   object-fit: cover; opacity: .7; transition: border-color .22s, opacity .22s, transform .18s;
   background: #fff;
+  flex-shrink: 0;
 }
 .apple-thumb.active {
   border-color: #4a90e2; opacity: 1; transform: scale(1.13);
   box-shadow: 0 2px 10px #4a90e220;
+  z-index: 1;
 }
 @media (max-width:700px){
   .apple-main-img { width: 98vw; height: 38vw; min-height: 140px; }
@@ -95,21 +99,38 @@ let appleIdx = 0;
 const appleMain = document.querySelector('.apple-main-img');
 const appleCap = document.querySelector('.apple-caption');
 const appleThumbs = document.querySelector('.apple-thumbs');
+
 function renderAppleThumbs() {
   appleThumbs.innerHTML = '';
   applePhotos.forEach((ph,i)=>{
     let t = document.createElement('img');
     t.src = ph.url; t.className='apple-thumb'+(i===appleIdx?' active':'');
     t.alt = ph.cap;
+    t.setAttribute('data-idx', i);
     t.addEventListener('click',()=>{appleIdx=i;updateApple();});
     appleThumbs.appendChild(t);
   });
 }
+
+function ensureActiveThumbVisible() {
+  const activeThumb = appleThumbs.querySelector('.apple-thumb.active');
+  if (!activeThumb) return;
+  // Use scrollIntoView with smooth behavior and "center" if possible,
+  // but fallback to "nearest" to avoid weird jumps at the ends.
+  activeThumb.scrollIntoView({
+    behavior: 'smooth',
+    inline: 'center',
+    block: 'nearest'
+  });
+}
+
 function updateApple(){
   appleMain.src = applePhotos[appleIdx].url;
   appleMain.alt = applePhotos[appleIdx].cap;
   appleCap.textContent = applePhotos[appleIdx].cap;
   renderAppleThumbs();
+  // After rendering, ensure the active thumb is visible and blue effect is always in view
+  setTimeout(ensureActiveThumbVisible, 30);
 }
 document.querySelector('.apple-arrow.left').onclick = ()=>{appleIdx=(appleIdx-1+applePhotos.length)%applePhotos.length;updateApple();}
 document.querySelector('.apple-arrow.right').onclick = ()=>{appleIdx=(appleIdx+1)%applePhotos.length;updateApple();}
