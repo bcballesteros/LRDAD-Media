@@ -1,26 +1,94 @@
-<!-- APPLE PHOTOS STYLE CAROUSEL: Smooth center-animated thumbs, enlarged image frame, auto slideshow -->
+<!-- 
+APPLE PHOTOS STYLE CAROUSEL + VIDEO SECTION ("Watch the Journey")
+Features:
+- Unified Apple-like styling for both carousel and video section
+- Responsive, enlarged carousel frame
+- Smooth, center-animated thumbnails (with visible blue border)
+- Auto slideshow (5 seconds, resets on user action)
+- Video in a visually matching section below the carousel
+- Section heading and optional description for video
+- Subtle fade-in animation for video section
+- Accessibility improvements
+- Down arrow cue to guide users to video
+- "Avenir Next" font family for headings and description in the video section
+- Extra vertical space above video heading
+- "short clip" in description
+-->
+
 <link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,600,700&display=swap" rel="stylesheet">
-<div class="apple-carousel">
-  <div class="apple-main-wrap">
-    <button class="apple-arrow left" aria-label="Previous">&#10094;</button>
-    <div class="apple-main-img-wrap">
-      <img class="apple-main-img" src="https://i.imgur.com/DgFC8rK.jpeg" alt="Main">
-      <div class="apple-caption">Lanao del Norte</div>
+
+<div class="gallery-section">
+  <!-- Carousel -->
+  <div class="apple-carousel" aria-label="Photo Gallery">
+    <div class="apple-main-wrap">
+      <button class="apple-arrow left" aria-label="Previous photo">&#10094;</button>
+      <div class="apple-main-img-wrap">
+        <img class="apple-main-img" src="https://i.imgur.com/DgFC8rK.jpeg" alt="Lanao del Norte" />
+        <div class="apple-caption">Lanao del Norte</div>
+      </div>
+      <button class="apple-arrow right" aria-label="Next photo">&#10095;</button>
     </div>
-    <button class="apple-arrow right" aria-label="Next">&#10095;</button>
+    <div class="apple-thumbs" aria-label="Photo thumbnails"></div>
+    <div class="down-arrow-cue" title="Scroll for video" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 36 36" style="display:block;margin:0 auto;">
+        <path d="M18 25c-.4 0-.8-.2-1.1-.4l-8-8a1.5 1.5 0 1 1 2.1-2.1l6.9 6.9 6.9-6.9a1.5 1.5 0 1 1 2.1 2.1l-8 8c-.3.2-.7.4-1.1.4z"
+          fill="#4a90e2" />
+      </svg>
+    </div>
   </div>
-  <div class="apple-thumbs"></div>
 </div>
+
+<div class="video-section fade-in" aria-labelledby="video-heading">
+  <h2 id="video-heading" style="font-family:'Avenir Next','SF Pro Display',Arial,sans-serif;font-size:1.65rem;font-weight:700;letter-spacing:.01em;margin:0 0 22px 6px;color:#202024;margin-top:74px;">
+    Watch the Journey
+  </h2>
+  <p class="video-desc" style="font-family:'Avenir Next','SF Pro Display',Arial,sans-serif;font-size:1.05rem;color:#364155;margin:0 0 24px 12px;">
+    Relive the highlights of our adventure in this short clip. Experience the moments, the landscapes, and the stories behind every photo.
+  </p>
+  <div class="video-player-wrap">
+    <div class="video-responsive">
+      <iframe 
+        src="https://www.youtube.com/embed/uAO9s-c_RQ4?si=Hj63DunOqjtfhVym"
+        title="Watch the Journey"
+        frameborder="0"
+        allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
+        allowfullscreen
+        aria-label="Highlight video"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
 <style>
+:root {
+  --accent-blue: #4a90e2;
+  --bg-light: #f8fafd;
+  --shadow-lg: 0 6px 50px #40507022;
+  --shadow-main: 0 4px 40px #4a90e230;
+  --font-main: 'Avenir Next','SF Pro Display', Arial, sans-serif;
+}
+
+body {
+  background: #f6f8fb;
+  margin: 0;
+  color: #202024;
+  font-family: var(--font-main);
+}
+
 .apple-carousel {
-  width: 770px; max-width: 99vw; margin: 65px auto; font-family: 'SF Pro Display', Arial, sans-serif;
+  width: 770px; max-width: 99vw; margin: 65px auto 0 auto; 
+  font-family: var(--font-main);
+  background: var(--bg-light);
+  border-radius: 28px;
+  box-shadow: var(--shadow-lg);
+  padding-bottom: 20px;
+  position: relative;
+  transition: box-shadow .4s, background .32s;
 }
 .apple-main-wrap {
   display: flex; align-items: center; justify-content: center;
-  background: #f8fafd; border-radius: 28px;
-  box-shadow: 0 6px 50px #40507022;
+  border-radius: 28px;
   padding: 24px 0 38px 0; position: relative;
-  transition: box-shadow .4s, background .32s;
 }
 .apple-arrow {
   background: rgba(255,255,255,0.88); border: none; border-radius: 50%; width: 54px; height: 54px;
@@ -29,10 +97,10 @@
   box-shadow: 0 2px 12px #4a90e220;
   opacity: .94;
 }
-.apple-arrow:hover, .apple-arrow:focus { background: #e8eef7; color: #4a90e2; }
+.apple-arrow:hover, .apple-arrow:focus { background: #e8eef7; color: var(--accent-blue); }
 .apple-main-img-wrap {
   position: relative; border-radius: 24px; overflow: hidden;
-  box-shadow: 0 4px 40px #4a90e230;
+  box-shadow: var(--shadow-main);
   background: #f6f6fa;
   width: 700px; max-width: 95vw; height: 480px;
   display: flex; align-items: center; justify-content: center;
@@ -41,9 +109,17 @@
 .apple-main-img {
   width: 700px; max-width: 95vw; height: 480px; object-fit: cover;
   border-radius: 24px;
-  transition: box-shadow .35s, filter .32s, width .4s, height .4s;
+  transition: box-shadow .35s, filter .32s, width .4s, height .4s, transform .4s cubic-bezier(.45,.15,.17,1.02);
   filter: brightness(1.08) saturate(1.10) contrast(1.04);
   background: #f6f6fa;
+  will-change: transform;
+}
+.apple-main-img.animate {
+  animation: main-img-zoom-in .38s cubic-bezier(.45,.15,.17,1.02);
+}
+@keyframes main-img-zoom-in {
+  from { opacity: 0.65; transform: scale(1.04);}
+  to   { opacity: 1; transform: scale(1);}
 }
 .apple-caption {
   position: absolute; left: 14px; bottom: 16px; right: 14px;
@@ -53,20 +129,28 @@
   text-shadow: 0 2px 12px #0008;
 }
 .apple-thumbs {
-  margin: 28px 0 0 0; display: flex; justify-content: flex-start; gap: 13px;
+  margin: 18px 0 0 0; display: flex; justify-content: flex-start; gap: 13px;
   max-width: 99vw; overflow-x: auto; padding: 0 12px;
   scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 .apple-thumb {
   width: 70px; height: 48px; border-radius: 8px; border: 2.5px solid transparent; cursor: pointer;
-  object-fit: cover; opacity: .7; transition: border-color .24s, opacity .22s, transform .18s;
+  object-fit: cover; opacity: .7; transition: border-color .24s, opacity .22s, transform .22s cubic-bezier(.45,.15,.17,1.02), box-shadow .22s;
   background: #fff;
   flex-shrink: 0;
+  box-shadow: 0 1px 6px #4a90e210;
+  will-change: transform;
 }
 .apple-thumb.active {
-  border-color: #4a90e2; opacity: 1; transform: scale(1.17);
+  border-color: var(--accent-blue); opacity: 1; transform: scale(1.17);
   box-shadow: 0 2px 12px #4a90e228;
   z-index: 1;
+  animation: blue-border-animate .32s cubic-bezier(.4,.08,.2,1);
+}
+@keyframes blue-border-animate {
+  from { box-shadow: 0 0px 0px var(--accent-blue); }
+  to   { box-shadow: 0 2px 12px #4a90e228;}
 }
 @media (max-width:900px){
   .apple-main-img, .apple-main-img-wrap { width: 98vw; height: 52vw; min-height: 170px; max-width: 99vw;}
@@ -80,16 +164,81 @@
   .apple-main-img, .apple-main-img-wrap { height: 41vw; min-height: 105px;}
   .apple-caption { font-size: .98rem; padding: 5px 10px 5px 10px;}
 }
-/* Hide scrollbar for thumbnails on Webkit browsers */
-.apple-thumbs::-webkit-scrollbar {
-  height: 0px;
-  background: transparent;
+.apple-thumbs::-webkit-scrollbar { height: 0px; background: transparent; }
+.down-arrow-cue {
+  margin: 20px auto 0 auto;
+  width: 36px;
+  opacity: 0.7;
+  animation: arrow-bounce 1.7s infinite cubic-bezier(.53,.02,.53,1.02);
+  transition: opacity .25s;
 }
-/* Hide scrollbar for thumbnails on Firefox */
-.apple-thumbs {
-  scrollbar-width: none;
+.down-arrow-cue:hover { opacity: 1; }
+@keyframes arrow-bounce {
+  0%,80%,100% { transform: translateY(0);}
+  50% { transform: translateY(12px);}
+}
+
+/* Video section styling */
+.video-section {
+  max-width: 770px;
+  margin: 0 auto 0 auto;
+  padding: 0 8px 28px 8px;
+  background: var(--bg-light);
+  border-radius: 28px;
+  box-shadow: var(--shadow-lg);
+  transition: box-shadow .4s, background .32s;
+  opacity: 1;
+}
+.fade-in { opacity: 0; animation: fadein-up 1.3s .15s cubic-bezier(.48,.12,.23,1) forwards;}
+@keyframes fadein-up {
+  from { opacity: 0; transform: translateY(32px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.video-section h2 {
+  font-family: 'Avenir Next','SF Pro Display', Arial, sans-serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  margin: 0 0 22px 6px;
+  color: #202024;
+  line-height: 1.2;
+  margin-top: 74px;
+}
+.video-desc {
+  font-family: 'Avenir Next','SF Pro Display', Arial, sans-serif;
+  font-size: 1.05rem;
+  color: #364155;
+  margin: 0 0 24px 12px;
+}
+.video-player-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.video-responsive {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  width: 100%;
+  max-width: 670px;
+  border-radius: 14px;
+  box-shadow: 0 2px 18px #4a90e217;
+  background: #000;
+  overflow: hidden;
+}
+.video-responsive iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: 14px;
+  background: #000;
+}
+
+/* Accessibility: focus styles */
+.apple-arrow:focus, .apple-thumb:focus {
+  outline: 2.5px solid var(--accent-blue);
+  outline-offset: 2px;
 }
 </style>
+
 <script>
 const applePhotos = [
   {url:"https://i.imgur.com/DgFC8rK.jpeg", cap:"Lanao del Norte"},
@@ -107,11 +256,15 @@ const applePhotos = [
   {url:"https://i.imgur.com/hMmfQld.jpeg", cap:"Bukidnon"},
   {url:"https://i.imgur.com/l0OLUWn.jpeg", cap:"Bukidnon"}
 ];
+
 let appleIdx = 0;
 let appleTimer = null;
 const appleMain = document.querySelector('.apple-main-img');
 const appleCap = document.querySelector('.apple-caption');
 const appleThumbs = document.querySelector('.apple-thumbs');
+const mainImgWrap = document.querySelector('.apple-main-img-wrap');
+const downArrowCue = document.querySelector('.down-arrow-cue');
+const fadeInSection = document.querySelector('.video-section');
 
 function renderAppleThumbs() {
   appleThumbs.innerHTML = '';
@@ -119,9 +272,17 @@ function renderAppleThumbs() {
     let t = document.createElement('img');
     t.src = ph.url; t.className='apple-thumb'+(i===appleIdx?' active':'');
     t.alt = ph.cap;
+    t.setAttribute('tabindex', 0);
+    t.setAttribute('role', 'button');
+    t.setAttribute('aria-label', ph.cap + (i===appleIdx ? " (current photo)" : ""));
     t.setAttribute('data-idx', i);
     t.addEventListener('click',()=>{
       appleIdx=i; updateApple(true);
+    });
+    t.addEventListener('keydown', (e)=>{
+      if(e.key === "Enter" || e.key === " ") {
+        appleIdx=i; updateApple(true);
+      }
     });
     appleThumbs.appendChild(t);
   });
@@ -130,17 +291,15 @@ function renderAppleThumbs() {
 function centerActiveThumbSmooth() {
   const activeThumb = appleThumbs.querySelector('.apple-thumb.active');
   if (!activeThumb) return;
-  // Calculate the position to center the active thumb
-  const thumbsRect = appleThumbs.getBoundingClientRect();
-  const activeRect = activeThumb.getBoundingClientRect();
-  const thumbsScrollLeft = appleThumbs.scrollLeft;
-  // Offset of active thumb's center relative to thumbs container
   const offset = (activeThumb.offsetLeft + activeThumb.offsetWidth/2) - (appleThumbs.clientWidth/2);
-  // Animate scroll (modern browsers)
   appleThumbs.scrollTo({left: offset, behavior: 'smooth'});
 }
 
 function updateApple(stopSlideshow){
+  // Animate main image
+  appleMain.classList.remove('animate');
+  void appleMain.offsetWidth; // force reflow for animation restart
+  appleMain.classList.add('animate');
   appleMain.src = applePhotos[appleIdx].url;
   appleMain.alt = applePhotos[appleIdx].cap;
   appleCap.textContent = applePhotos[appleIdx].cap;
@@ -161,6 +320,7 @@ document.querySelector('.apple-arrow.right').onclick = ()=>{
   updateApple(true);
 };
 document.addEventListener('keydown',e=>{
+  if(document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") return;
   if(e.key==='ArrowLeft'){
     appleIdx=(appleIdx-1+applePhotos.length)%applePhotos.length;
     updateApple(true);
@@ -183,6 +343,18 @@ function stopAutoSlideshow() {
   if (appleTimer) clearInterval(appleTimer);
   appleTimer = null;
 }
+
+// Down arrow cue: smooth scroll to video section
+downArrowCue.addEventListener('click', function() {
+  fadeInSection.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+// Fade-in video section on load (for a subtle reveal)
+window.addEventListener('DOMContentLoaded', ()=>{
+  setTimeout(()=>{
+    fadeInSection.classList.add('fade-in');
+  }, 400);
+});
 
 updateApple(false);
 startAutoSlideshow();
