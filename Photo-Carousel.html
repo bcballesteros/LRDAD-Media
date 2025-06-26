@@ -1,7 +1,5 @@
-<!-- 
-APPLE PHOTOS STYLE CAROUSEL + VIDEO SECTION ("Watch the Journey")
-Transparent containers, shows your site background.
--->
+<!-- Apple Photos style: only carousel and video section have white background, rest is your site background -->
+
 <link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,600,700&display=swap" rel="stylesheet">
 
 <div class="gallery-section">
@@ -17,7 +15,8 @@ Transparent containers, shows your site background.
     <div class="apple-thumbs" aria-label="Photo thumbnails"></div>
     <div class="down-arrow-cue" title="Scroll for video" aria-hidden="true">
       <svg width="36" height="36" viewBox="0 0 36 36" style="display:block;margin:0 auto;">
-        <path d="M18 25c-.4 0-.8-.2-1.1-.4l-8-8a1.5 1.5 0 1 1 2.1-2.1l6.9 6.9 6.9-6.9a1.5 1.5 0 1 1 2.1 2.1l-8 8c-.3.2-.7.4-1.1.4z" fill="#4a90e2" />
+        <path d="M18 25c-.4 0-.8-.2-1.1-.4l-8-8a1.5 1.5 0 1 1 2.1-2.1l6.9 6.9 6.9-6.9a1.5 1.5 0 1 1 2.1 2.1l-8 8c-.3.2-.7.4-1.1.4z"
+          fill="#4a90e2" />
       </svg>
     </div>
   </div>
@@ -53,19 +52,21 @@ Transparent containers, shows your site background.
   --font-main: 'Avenir Next','SF Pro Display', Arial, sans-serif;
 }
 
+/* Set your body background here - for demo it's a soft gray, can be transparent or an image */
 body {
-  background: #f6f8fb;
+  background: #f6f8fb; /* <--- Your site background, NOT white! */
   margin: 0;
   color: #202024;
   font-family: var(--font-main);
 }
 
+/* Only containers have white card backgrounds! */
 .apple-carousel {
-  width: 770px; max-width: 99vw; margin: 65px auto 0 auto;
+  width: 770px; max-width: 99vw; margin: 65px auto 0 auto; 
   font-family: var(--font-main);
-  background: none;
-  box-shadow: none;
+  background: var(--bg-light);
   border-radius: 28px;
+  box-shadow: var(--shadow-lg);
   padding-bottom: 20px;
   position: relative;
   transition: box-shadow .4s, background .32s;
@@ -162,13 +163,14 @@ body {
   0%,80%,100% { transform: translateY(0);}
   50% { transform: translateY(12px);}
 }
+
 .video-section {
   max-width: 770px;
   margin: 0 auto 0 auto;
   padding: 0 8px 28px 8px;
-  background: none;
-  box-shadow: none;
+  background: var(--bg-light);
   border-radius: 28px;
+  box-shadow: var(--shadow-lg);
   transition: box-shadow .4s, background .32s;
   opacity: 1;
 }
