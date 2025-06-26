@@ -1,24 +1,10 @@
 <!-- 
 APPLE PHOTOS STYLE CAROUSEL + VIDEO SECTION ("Watch the Journey")
-Features:
-- Unified Apple-like styling for both carousel and video section
-- Responsive, enlarged carousel frame
-- Smooth, center-animated thumbnails (with visible blue border)
-- Auto slideshow (5 seconds, resets on user action)
-- Video in a visually matching section below the carousel
-- Section heading and optional description for video
-- Subtle fade-in animation for video section
-- Accessibility improvements
-- Down arrow cue to guide users to video
-- "Avenir Next" font family for headings and description in the video section
-- Extra vertical space above video heading
-- "short clip" in description
+Transparent containers, shows your site background.
 -->
-
 <link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,600,700&display=swap" rel="stylesheet">
 
 <div class="gallery-section">
-  <!-- Carousel -->
   <div class="apple-carousel" aria-label="Photo Gallery">
     <div class="apple-main-wrap">
       <button class="apple-arrow left" aria-label="Previous photo">&#10094;</button>
@@ -31,8 +17,7 @@ Features:
     <div class="apple-thumbs" aria-label="Photo thumbnails"></div>
     <div class="down-arrow-cue" title="Scroll for video" aria-hidden="true">
       <svg width="36" height="36" viewBox="0 0 36 36" style="display:block;margin:0 auto;">
-        <path d="M18 25c-.4 0-.8-.2-1.1-.4l-8-8a1.5 1.5 0 1 1 2.1-2.1l6.9 6.9 6.9-6.9a1.5 1.5 0 1 1 2.1 2.1l-8 8c-.3.2-.7.4-1.1.4z"
-          fill="#4a90e2" />
+        <path d="M18 25c-.4 0-.8-.2-1.1-.4l-8-8a1.5 1.5 0 1 1 2.1-2.1l6.9 6.9 6.9-6.9a1.5 1.5 0 1 1 2.1 2.1l-8 8c-.3.2-.7.4-1.1.4z" fill="#4a90e2" />
       </svg>
     </div>
   </div>
@@ -76,11 +61,11 @@ body {
 }
 
 .apple-carousel {
-  width: 770px; max-width: 99vw; margin: 65px auto 0 auto; 
+  width: 770px; max-width: 99vw; margin: 65px auto 0 auto;
   font-family: var(--font-main);
-  background: var(--bg-light);
+  background: none;
+  box-shadow: none;
   border-radius: 28px;
-  box-shadow: var(--shadow-lg);
   padding-bottom: 20px;
   position: relative;
   transition: box-shadow .4s, background .32s;
@@ -177,15 +162,13 @@ body {
   0%,80%,100% { transform: translateY(0);}
   50% { transform: translateY(12px);}
 }
-
-/* Video section styling */
 .video-section {
   max-width: 770px;
   margin: 0 auto 0 auto;
   padding: 0 8px 28px 8px;
-  background: var(--bg-light);
+  background: none;
+  box-shadow: none;
   border-radius: 28px;
-  box-shadow: var(--shadow-lg);
   transition: box-shadow .4s, background .32s;
   opacity: 1;
 }
@@ -231,8 +214,6 @@ body {
   border-radius: 14px;
   background: #000;
 }
-
-/* Accessibility: focus styles */
 .apple-arrow:focus, .apple-thumb:focus {
   outline: 2.5px solid var(--accent-blue);
   outline-offset: 2px;
@@ -296,16 +277,14 @@ function centerActiveThumbSmooth() {
 }
 
 function updateApple(stopSlideshow){
-  // Animate main image
   appleMain.classList.remove('animate');
-  void appleMain.offsetWidth; // force reflow for animation restart
+  void appleMain.offsetWidth;
   appleMain.classList.add('animate');
   appleMain.src = applePhotos[appleIdx].url;
   appleMain.alt = applePhotos[appleIdx].cap;
   appleCap.textContent = applePhotos[appleIdx].cap;
   renderAppleThumbs();
   setTimeout(centerActiveThumbSmooth, 30);
-  // Reset slideshow if manually triggered
   if (stopSlideshow) {
     stopAutoSlideshow();
     startAutoSlideshow();
@@ -330,8 +309,6 @@ document.addEventListener('keydown',e=>{
     updateApple(true);
   }
 });
-
-// Auto slideshow: advance every 5 seconds, reset if user interacts
 function startAutoSlideshow() {
   stopAutoSlideshow();
   appleTimer = setInterval(()=>{
@@ -343,19 +320,14 @@ function stopAutoSlideshow() {
   if (appleTimer) clearInterval(appleTimer);
   appleTimer = null;
 }
-
-// Down arrow cue: smooth scroll to video section
 downArrowCue.addEventListener('click', function() {
   fadeInSection.scrollIntoView({behavior:'smooth', block:'start'});
 });
-
-// Fade-in video section on load (for a subtle reveal)
 window.addEventListener('DOMContentLoaded', ()=>{
   setTimeout(()=>{
     fadeInSection.classList.add('fade-in');
   }, 400);
 });
-
 updateApple(false);
 startAutoSlideshow();
 </script>
