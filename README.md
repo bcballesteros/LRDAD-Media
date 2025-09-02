@@ -1,2 +1,2 @@
 # LRDAD-Media
-This is the repository of photos and videos of LRDAD fieldwork.
+Photo carousel code of LRDAD fieldwork photos and videos. 
